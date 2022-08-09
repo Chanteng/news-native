@@ -1,8 +1,11 @@
 import { StyleSheet, Text, View, SafeAreaView } from 'react-native'
 import React from 'react'
+import 'react-native-gesture-handler';
 import Ionic from "react-native-vector-icons/Ionicons"
 import { NavigationContainer } from '@react-navigation/native'
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+
+
 
 import Home from "../Screens/Home"
 import Add from "../Screens/Add"
@@ -14,10 +17,10 @@ import Activity from "../Screens/Activity"
 
 const Navigation = (props) => {
 
-  const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator();
 
   return (
-    <SafeAreaView>
+    <SafeAreaView  style={{flex: 1}} >
       <NavigationContainer>
         <Tab.Navigator screenOptions={({route}) => ({
           tabBarIcon: ({focused, size, colour}) => {
