@@ -15,7 +15,7 @@ import Activity from "../Screens/Activity"
 
 
 
-const Navigation = (props) => {
+const Navigation = ({navigation}) => {
 
     const Tab = createBottomTabNavigator();
 

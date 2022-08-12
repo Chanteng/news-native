@@ -7,12 +7,15 @@ import {
   Animated,
   Image,
   Dimensions,
+  TouchableOpacity,
+  Button,
 } from "react-native";
 import React from "react";
+import Home from "./Home";
 
 const { width, height } = Dimensions.get("screen");
 
-const bgs = ["#A5BBFF", "#DDBEFE", "#FF63ED", "#B98EFF"];
+const bgs = ["#5853e8", "#fc4b47", "#7d7bff", "#707da3"];
 const DATA = [
   {
     key: "1",
@@ -46,7 +49,10 @@ const Indicator = ({ scrollX }) => {
       style={{
         position: "absolute",
         bottom: 100,
-        left: 180,
+        left: 150,
+        justifyContent: "center",
+        alignSelf: "center",
+        alignItems: "center",
         flexDirection: "row",
       }}
     >
@@ -104,21 +110,20 @@ const Backdrop = ({ scrollX }) => {
 };
 
 const Square = ({ scrollX }) => {
-  const YOLO = Animated.modulo(Animated.divide(
-    Animated.modulo(scrollX, width),
-    new Animated.Value(width)
-  ), 1);
+  const YOLO = Animated.modulo(
+    Animated.divide(Animated.modulo(scrollX, width), new Animated.Value(width)),
+    1
+  );
 
-  const rotate = YOLO.interpolate ({
+  const rotate = YOLO.interpolate({
     inputRange: [0, 0.5, 1],
-    outputRange: ["35deg", "0deg", "35deg"]
-  })
+    outputRange: ["35deg", "0deg", "35deg"],
+  });
 
-  const translateX = YOLO.interpolate ({
+  const translateX = YOLO.interpolate({
     inputRange: [0, 0.5, 1],
-    outputRange: [0, -height, 0]
-  })
-
+    outputRange: [0, -height, 0],
+  });
 
   return (
     <Animated.View
@@ -128,21 +133,22 @@ const Square = ({ scrollX }) => {
         backgroundColor: "#fff",
         borderRadius: 86,
         position: "absolute",
-        top: -height * 0.6, 
+        top: -height * 0.6,
         left: -height * 0.3,
-        transform: [{
-          rotate,
-        },
-      {
-        translateX,
-      }
-    ]
+        transform: [
+          {
+            rotate,
+          },
+          {
+            translateX,
+          },
+        ],
       }}
     />
   );
 };
 
-const GetStarted = () => {
+const GetStarted = ({ navigation }) => {
   const scrollX = React.useRef(new Animated.Value(0)).current;
 
   return (
@@ -170,7 +176,8 @@ const GetStarted = () => {
                   source={item.image}
                   style={{
                     width: width / 2,
-                    height: width / 2,
+                    height: width / 1,
+                    // resizeMode: "contain",
                     resizeMode: "contain",
                   }}
                 />
@@ -195,6 +202,12 @@ const GetStarted = () => {
         }}
       />
       <Indicator scrollX={scrollX} />
+
+      <TouchableOpacity onPress={() => navigation.navigate("Navigation")}>
+        <View>
+          <Text>Home</Text>
+        </View>
+      </TouchableOpacity>
     </View>
   );
 };
